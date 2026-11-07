@@ -1,0 +1,50 @@
+name: podcast
+version: 1.0.0
+manifest_version: 2
+api_version: 1
+description: "Turn any article, PDF, paper, notes or the day's news into a real two-host podcast episode: natural voices, pauses, intro chime, loudness mastering, chapter markers and a timestamped transcript, delivered as an MP3."
+author: suhas-svg
+license: MIT
+homepage: https://github.com/suhas-svg/hermes_podcast
+tags: [podcast, audio, tts, text-to-speech, summary, briefing]
+requires_hermes: ">=0.22.5"
+provides_tools:
+  - podcast_produce
+  - podcast_voices
+  - podcast_episodes
+provides_hooks: []
+python_dependencies:
+  - "edge-tts>=7.0,<8"
+config_schema:
+  host_a_voice:
+    type: str
+    default: "en-US-AndrewMultilingualNeural"
+    description: "Voice for the first default host (Alex). See /podcast voices."
+  host_b_voice:
+    type: str
+    default: "en-US-AvaMultilingualNeural"
+    description: "Voice for the second default host (Sam)."
+  pause_ms:
+    type: int
+    default: 350
+    description: "Pause between speakers in milliseconds (longer between chapters)."
+  intro_chime:
+    type: bool
+    default: true
+    description: "Play a short chime at the start of each episode."
+  max_lines:
+    type: int
+    default: 160
+    description: "Most script lines one episode may have."
+  max_chars:
+    type: int
+    default: 24000
+    description: "Most spoken characters one episode may have (about 25 minutes)."
+  concurrency:
+    type: int
+    default: 3
+    description: "Lines synthesized in parallel. Higher values make the voice service throttle."
+  ffmpeg_path:
+    type: str
+    default: ""
+    description: "Path to ffmpeg. Empty means find it on PATH; without ffmpeg clips are joined unmastered."
